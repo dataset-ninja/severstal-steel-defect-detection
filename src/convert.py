@@ -1,7 +1,9 @@
 # https://github.com/zdaiot/Kaggle-Steel-Defect-Detection
 
+import csv
 import os
 import shutil
+from collections import defaultdict
 from urllib.parse import unquote, urlparse
 
 import cv2
@@ -39,33 +41,39 @@ def convert_and_upload_supervisely_project(
 ) -> sly.ProjectInfo:
     # project_name = "severstal-steel-defect"
     dataset_path = "/mnt/d/datasetninja-raw/severstal"
-    masks_path = "/home/alex/DATASETS/TODO/severstal-steel-defect/archive_masks"
-    mask_suffix = "_mask.png"
+    masks_path = "/mnt/d/datasetninja-raw/severstal/train.csv"
+
     images_ext = ".jpg"
     batch_size = 30
 
+    def transform(encoded_pixel, wight=1600, height=256, fill_value=1):
+        encoded_pixel_list = list(map(lambda x: int(x), encoded_pixel.split(" ")))
+        n = len(encoded_pixel_list)
+        encoded_pixel_list = [
+            (encoded_pixel_list[i], encoded_pixel_list[i + 1]) for i in range(0, n, 2)
+        ]
+        mask = np.zeros(height * wight)
+        for start, offset in encoded_pixel_list:
+            mask[start - 1 : start + offset - 1] = fill_value
+        mask = mask.reshape(wight, height)
+        return mask.T
+
     def create_ann(image_path):
+        img_height = 256
+        img_wight = 1600
         labels = []
 
-        mask_name = get_file_name(image_path) + mask_suffix
-        mask_path = os.path.join(masks_path, mask_name)
+        masks_data = image_name_to_data[get_file_name_with_ext(image_path)]
+        for curr_mask_data in masks_data:
+            obj_class = pixel_to_class[curr_mask_data[0]]
+            mask = transform(curr_mask_data[1])
 
-        mask_np = sly.imaging.image.read(mask_path)[:, :, 0]
-
-        img_height = mask_np.shape[0]
-        img_wight = mask_np.shape[1]
-
-        unique_pixels = np.unique(mask_np)[1:]
-        for curr_pixel in unique_pixels:
-            obj_class = pixel_to_class[curr_pixel]
-            mask = mask_np == curr_pixel
             ret, curr_mask = connectedComponents(mask.astype("uint8"), connectivity=8)
             for i in range(1, ret):
                 obj_mask = curr_mask == i
                 curr_bitmap = sly.Bitmap(obj_mask)
-                if curr_bitmap.area > 100:
-                    curr_label = sly.Label(curr_bitmap, obj_class)
-                    labels.append(curr_label)
+                curr_label = sly.Label(curr_bitmap, obj_class)
+                labels.append(curr_label)
 
         return sly.Annotation(img_size=(img_height, img_wight), labels=labels)
 
@@ -79,6 +87,15 @@ def convert_and_upload_supervisely_project(
     project = api.project.create(workspace_id, project_name, change_name_if_conflict=True)
     meta = sly.ProjectMeta(obj_classes=[obj_class_1, obj_class_2, obj_class_3, obj_class_4])
     api.project.update_meta(project.id, meta.to_json())
+
+    image_name_to_data = defaultdict(list)
+
+    with open(masks_path, "r") as file:
+        csvreader = csv.reader(file)
+        for idx, row in enumerate(csvreader):
+            if idx == 0:
+                continue
+            image_name_to_data[row[0]].append([int(row[1]), row[2]])
 
     for ds_name in os.listdir(dataset_path):
         curr_ds_path = os.path.join(dataset_path, ds_name)
