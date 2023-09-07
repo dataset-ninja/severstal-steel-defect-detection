@@ -97,10 +97,11 @@ def convert_and_upload_supervisely_project(
                 continue
             image_name_to_data[row[0]].append([int(row[1]), row[2]])
 
-    for ds_name in os.listdir(dataset_path):
-        curr_ds_path = os.path.join(dataset_path, ds_name)
+    for folder_name in os.listdir(dataset_path):
+        curr_ds_path = os.path.join(dataset_path, folder_name)
 
         if dir_exists(curr_ds_path):
+            ds_name = folder_name.split("_")[0]
             dataset = api.dataset.create(project.id, ds_name, change_name_if_conflict=True)
 
             images_names = os.listdir(curr_ds_path)
@@ -115,7 +116,7 @@ def convert_and_upload_supervisely_project(
                 img_infos = api.image.upload_paths(dataset.id, img_names_batch, img_pathes_batch)
                 img_ids = [im_info.id for im_info in img_infos]
 
-                if ds_name == "train_images":
+                if folder_name == "train_images":
                     anns = [create_ann(image_path) for image_path in img_pathes_batch]
                     api.annotation.upload_anns(img_ids, anns)
 
