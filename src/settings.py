@@ -21,7 +21,7 @@ HIDE_DATASET = True  # set False when 100% sure about repo quality
 # * After uploading to instance ##
 ##################################
 LICENSE: License = License.Custom()
-APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.SurfaceDefectDetection()]
+APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.SurfaceDefectDetection(), Industry.Manufacturing()]
 CATEGORY: Category = Category.Manufacturing()
 
 CV_TASKS: List[CVTask] = [
