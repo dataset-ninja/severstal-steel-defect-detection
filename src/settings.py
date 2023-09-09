@@ -15,13 +15,16 @@ from dataset_tools.templates import (
 ##################################
 PROJECT_NAME: str = "Severstal"
 PROJECT_NAME_FULL: str = "Severstal: Steel Defect Detection 2019 Challenge"
-HIDE_DATASET = True  # set False when 100% sure about repo quality
+HIDE_DATASET = False  # set False when 100% sure about repo quality
 
 ##################################
 # * After uploading to instance ##
 ##################################
 LICENSE: License = License.Custom()
-APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.SurfaceDefectDetection(), Industry.Manufacturing()]
+APPLICATIONS: List[Union[Industry, Domain, Research]] = [
+    Domain.SurfaceDefectDetection(),
+    Industry.Manufacturing(),
+]
 CATEGORY: Category = Category.Manufacturing()
 
 CV_TASKS: List[CVTask] = [
