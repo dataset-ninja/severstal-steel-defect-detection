@@ -10,7 +10,7 @@ SAMPLE_RATE = 1  # make less if dataset is too big
 # * Preview class to visualize in SUMMARY.md overview section
 # * Literal["ClassesPreview", "HorizontalGrid", "SideAnnotationsGrid", "Poster", "HorizontalGridAnimated", "VerticalGridAnimated"]
 # * If None, then preview_class will be set automatically to "ClassesPreview"
-PREVIEW_CLASS = "Poster"
+PREVIEW_CLASS = "HorizontalGridAnimated"
 
 IS_DETECTION_TASK: bool = None  # ? Set True if you want to visualize only bbox annotations
 if IS_DETECTION_TASK is None:
@@ -25,8 +25,8 @@ POSTER_TITLE: str = None
 
 ###############################################################
 #### * Set up visualization params for HorizontalGrid class ###
-HORIZONTAL_GRID_ROWS: int = None
-HORIZONTAL_GRID_COLS: int = None
+HORIZONTAL_GRID_ROWS: int = 4
+HORIZONTAL_GRID_COLS: int = 2
 HORIZONTAL_GRID_IS_DETECTION_TASK: bool = IS_DETECTION_TASK
 ###############################################################
 
@@ -67,8 +67,8 @@ CLASSES_PREVIEW_GAP: int = None
 ### * Set up visualization params for ClassesHeatmaps class ###
 # args for "to_image" method
 DRAW_STYLE: str = None  # "inside_white" or "outside_black"
-HEATMAP_ROWS: int = None
-HEATMAP_COLS: int = None
+HEATMAP_ROWS: int = 2
+HEATMAP_COLS: int = 2
 HEATMAP_GRID_SPACING: int = None
 HEATMAP_OUTER_GRID_SPACING: int = None
 HEATMAP_OUTPUT_WIDTH: int = (

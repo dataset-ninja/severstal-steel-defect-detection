@@ -21,7 +21,7 @@ HIDE_DATASET = True  # set False when 100% sure about repo quality
 # * After uploading to instance ##
 ##################################
 LICENSE: License = License.Custom()
-APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.SurfaceDefectDetection()]
+APPLICATIONS: List[Union[Industry, Domain, Research]] = [Domain.SurfaceDefectDetection(), Industry.Manufacturing()]
 CATEGORY: Category = Category.Manufacturing()
 
 CV_TASKS: List[CVTask] = [
@@ -38,7 +38,7 @@ if RELEASE_DATE is None:
 HOMEPAGE_URL: str = "https://www.kaggle.com/competitions/severstal-steel-defect-detection/overview"
 # e.g. "https://some.com/dataset/homepage"
 
-PREVIEW_IMAGE_ID: int = 3315995
+PREVIEW_IMAGE_ID: int = 3315835
 # This should be filled AFTER uploading images to instance, just ID of any image.
 
 GITHUB_URL: str = "https://github.com/dataset-ninja/severstal"

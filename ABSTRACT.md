@@ -5,4 +5,4 @@ The intricate process of producing flat sheet steel demands precision and care a
 In this competition, participants are tasked with aiding engineers in refining this algorithm by localizing and categorizing surface defects on steel sheets.
 This competition aims to predict the location and type of defects found in steel manufacturing by segmenting and classifying the defects in the test set.
 
-Each image may have no defects, a defect of a single class, or defects of multiple classes. The classes are (`ClassId = [1, 2, 3, 4]`).
+Each image may have no defects, a defect of a single class, or defects of multiple classes. There are 3 different defect classes.
