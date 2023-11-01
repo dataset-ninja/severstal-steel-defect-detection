@@ -73,6 +73,7 @@ CITATION_URL: Optional[
     str
 ] = "https://www.kaggle.com/competitions/severstal-steel-defect-detection/overview"
 AUTHORS: Optional[List[str]] = ["Alexey Grishin", "BorisV", "iBardintsev", "inversion", "Oleg"]
+AUTHORS_CONTACTS: Optional[List[str]] = ["https://www.kaggle.com/grishin"]
 
 ORGANIZATION_NAME: Optional[Union[str, List[str]]] = "Severstal, Russia"
 ORGANIZATION_URL: Optional[Union[str, List[str]]] = "https://severstal.com/eng/"
@@ -126,6 +127,7 @@ def get_settings():
     settings["repository"] = REPOSITORY
     settings["citation_url"] = CITATION_URL
     settings["authors"] = AUTHORS
+    settings["authors_contacts"] = AUTHORS_CONTACTS
     settings["organization_name"] = ORGANIZATION_NAME
     settings["organization_url"] = ORGANIZATION_URL
     settings["slytagsplit"] = SLYTAGSPLIT
