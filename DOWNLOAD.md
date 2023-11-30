@@ -1,6 +1,6 @@
 Dataset **Severstal** can be downloaded in [Supervisely format](https://developer.supervisely.com/api-references/supervisely-annotation-json-format):
 
- [Download](https://assets.supervisely.com/supervisely-supervisely-assets-public/teams_storage/a/5/uC/JpzK6PP8cKEfKuJemHr8kO61HKzgz7D9SVJbbdIuRvEVR4D2Utyw1rDcnQtfQ3CVictPUWNhf0JrqqvftfFlJQw7w4PiM5yk0C10eDORh8Qgamzu842lk2PoERzW.tar)
+ [Download](https://www.dropbox.com/scl/fi/dm8h2qvpol3rp3nvy45ob/severstal-DatasetNinja.tar?rlkey=sb4objqcxa26sqzn68m7vmigi&dl=1)
 
 As an alternative, it can be downloaded with *dataset-tools* package:
 ``` bash
